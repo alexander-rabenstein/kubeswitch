@@ -24,7 +24,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 	stackitconfig "github.com/stackitcloud/stackit-sdk-go/core/config"
-	ske "github.com/stackitcloud/stackit-sdk-go/services/ske"
+	ske "github.com/stackitcloud/stackit-sdk-go/services/ske" //nolint:staticcheck
 	"gopkg.in/yaml.v3"
 
 	storetypes "github.com/danielfoehrkn/kubeswitch/pkg/store/types"
@@ -157,7 +157,7 @@ func (s *SKEStore) StartSearch(channel chan storetypes.SearchResult) {
 	s.Logger.Debug("SKE: start search")
 
 	ctx := context.Background()
-	resp, err := s.Client.ListClustersExecute(ctx, s.Config.ProjectID, s.Config.Region)
+	resp, err := s.Client.ListClustersExecute(ctx, s.Config.ProjectID, s.Config.Region) //nolint:staticcheck
 	if err != nil {
 		channel <- storetypes.SearchResult{
 			KubeconfigPath: "",
@@ -193,9 +193,9 @@ func (s *SKEStore) GetKubeconfigForPath(clusterName string, _ map[string]string)
 	s.Logger.Debugf("SKE: getting kubeconfig for cluster %q", clusterName)
 
 	ctx := context.Background()
-	kubeconfigResp, err := s.Client.CreateKubeconfig(ctx, s.Config.ProjectID, s.Config.Region, clusterName).
-		CreateKubeconfigPayload(*ske.NewCreateKubeconfigPayload()).
-		Execute()
+	kubeconfigResp, err := s.Client.CreateKubeconfig(ctx, s.Config.ProjectID, s.Config.Region, clusterName). //nolint:staticcheck
+															CreateKubeconfigPayload(*ske.NewCreateKubeconfigPayload()).
+															Execute() //nolint:staticcheck
 	if err != nil {
 		return nil, fmt.Errorf("SKE: failed to create kubeconfig for cluster %q: %w", clusterName, err)
 	}
