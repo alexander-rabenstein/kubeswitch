@@ -14,7 +14,6 @@
 package switcher
 
 import (
-
 	gardenercontrolplane "github.com/danielfoehrkn/kubeswitch/pkg/subcommands/gardener"
 	"github.com/spf13/cobra"
 )
