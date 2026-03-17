@@ -450,6 +450,13 @@ func getKubeconfigPathFromFlag() string {
 	return os.ExpandEnv(kubeconfigPath)
 }
 
+func getDefaultConfigPath() string {
+	if env := os.Getenv("KUBESWITCHCONFIG"); env != "" {
+		return env
+	}
+	return os.ExpandEnv("$HOME/.kube/switch-config.yaml")
+}
+
 // isDuplicatePath searches through all kubeconfig stores in the switch-config.yaml and checks if the
 // given path is already configured in any of these stores
 // returns true if it is already configureed
